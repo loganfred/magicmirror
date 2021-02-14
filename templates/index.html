@@ -1,0 +1,49 @@
+<!doctype html>
+<title>test</title>
+<style>
+    .answer {
+        color: blue;
+    }
+</style>
+<body>
+<h1>dashboard test</h1>
+
+<h2> bitcoin </h2>
+
+<p> The current bitcoin price is $ {{ bitcoin.price }}. </p>
+<p> After {{ bitcoin.days }} days you are up {{ bitcoin.growth_pct }} %. </p>
+<p> Your total profit is $ {{ bitcoin.profit }}.</p>
+
+<h2> weather </h2>
+
+<p> {{ weather.state }} in {{ weather.location }} at {{ weather.time }}.  </p>
+<p> Today the sun rises at {{ weather.sun_up }} and sets at {{ weather.sun_down }}. </p>
+<p> The current temperature is {{ weather.temp }} °C ({{ weather.temp_f }} °F) with humidity of {{ weather.humidity }} %</p>
+<p> The low is {{ weather.low }} °C ({{ weather.low_f }} °F) and the high is {{ weather.high }} °C ({{ weather.low }} °F). </p>
+
+<h2> chess </h2>
+
+<p> Your current rating is {{ chess.daily }} (Best: {{ chess.peak }}) </p>
+<p> Your record is {{ chess.wins }} wins and {{ chess.losses }} losses with {{ chess.drawn }} drawn games. </p>
+<p> You have {{ chess.active_count }} active games. </p>
+
+<h2> covid </h2>
+
+<p> The state of {{ covid.state }} has experienced {{ covid.deaths }} total deaths.</p>
+<p> There are {{ covid.hospitalized }} people hospitalized currently. </p>
+<p> There are {{ covid.icued }} people currently in the ICU. </p>
+
+<h2> trivia </h2>
+
+<p> {{ trivia.question }} (Difficulty: {{ trivia.difficulty }}) </p>
+<ul>
+{% for answer in trivia.answers %}
+    {% if answer == trivia.correct %}
+        <li class="correct"> {{ answer }} </li>
+    {% else %}
+        <li> {{ answer }} </li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+</body>
