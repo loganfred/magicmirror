@@ -2,28 +2,31 @@ from flask import Flask
 from flask import jsonify
 from flask import render_template
 
-from apis import Bitcoin
-from apis import Chess
-from apis import Covid
-from apis import Trivia
-from apis import Weather
+import apis
 
 app = Flask(__name__)
 
 
+@app.route('/api/bitcoin')
+def bitcoin():
+    return jsonify(apis.bitcoin())
+
+@app.route('/api/weather')
+def weather():
+    return jsonify(apis.weather())
+
+@app.route('/api/covid')
+def covid():
+    return jsonify(apis.covid())
+
+@app.route('/api/chess')
+def chess():
+    return jsonify(apis.chess())
+
+@app.route('/api/trivia')
+def trivia():
+    return jsonify(apis.trivia())
+
 @app.route('/')
 def index():
-
-    bitcoin = Bitcoin()
-    chess = Chess()
-    covid = Covid()
-    trivia = Trivia()
-    weather = Weather()
-
-    items = dict(bitcoin=bitcoin,
-                 chess=chess,
-                 covid=covid,
-                 trivia=trivia,
-                 weather=weather)
-
-    return render_template('index.html', **items)
+    return render_template('index.html')

@@ -6,111 +6,112 @@ from dotenv import load_dotenv
 
 load_dotenv('config.env')
 
-class Bitcoin:
+def bitcoin():
 
-    def __init__(self):
+    owned = float(os.getenv('BITCOIN_AMOUNT'))
+    principle = float(os.getenv('BITCOIN_PRINCIPLE'))
+    purchase = dt.datetime.fromisoformat(os.getenv('BITCOIN_PURCHASE'))
 
-        owned = float(os.getenv('BITCOIN_AMOUNT'))
-        principle = float(os.getenv('BITCOIN_PRINCIPLE'))
-        purchase = dt.datetime.fromisoformat(os.getenv('BITCOIN_PURCHASE'))
+    url = 'https://api.coindesk.com/v1/bpi/currentprice.json'
+    data = requests.get(url).json()
 
-        url = 'https://api.coindesk.com/v1/bpi/currentprice.json'
-        data = requests.get(url).json()
+    price = data['bpi']['USD']['rate_float']
+    timestamp = dt.datetime.fromisoformat(data['time']['updatedISO'])
 
-        price = data['bpi']['USD']['rate_float']
-        timestamp = dt.datetime.fromisoformat(data['time']['updatedISO'])
+    profit = (price * owned - principle)
+    pct_growth = profit / principle * 100
+    days = (timestamp.replace(tzinfo=None) - purchase).days
 
-        profit = (price * owned - principle)
-        pct_growth = profit / principle * 100
-        days = (timestamp.replace(tzinfo=None) - purchase).days
-
-        self.days = days
-        self.price = f'{price:,.2f}'
-        self.profit = f'{profit:,.2f}'
-        self.growth_pct = f'{pct_growth:,.2f}'
+    return dict(days=days,
+                price=f'{price:,.2f}',
+                profit=f'{profit:,.2f}',
+                pct=f'{pct_growth:,.2f}')
 
 
-class Chess:
+def chess():
 
-    def __init__(self):
+    username = os.getenv('CHESS_USERNAME')
+    url = f'https://api.chess.com/pub/player/{username}'
+    stats = requests.get(f'{url}/stats').json()['chess_daily']
+    games = requests.get(f'{url}/games').json()['games']
 
-        username = os.getenv('CHESS_USERNAME')
-        url = f'https://api.chess.com/pub/player/{username}'
-        stats = requests.get(f'{url}/stats').json()['chess_daily']
-        games = requests.get(f'{url}/games').json()['games']
+    return dict(daily=stats['last']['rating'],
+                peak=stats['best']['rating'],
+                wins=stats['record']['win'],
+                losses=stats['record']['loss'],
+                drawn=stats['record']['draw'],
+                active_count=len(games))
 
-        self.daily = stats['last']['rating']
-        self.peak = stats['best']['rating']
-        self.wins = stats['record']['win']
-        self.losses = stats['record']['loss']
-        self.drawn = stats['record']['draw']
-        self.active_count = len(games)
+def weather():
 
-class Weather:
-
-    def __init__(self):
-
-        url = 'https://www.metaweather.com/api/location'
-        latlong = os.getenv('WEATHER_LAT_LONG')
-        location = requests.get(f'{url}/search?lattlong={latlong}').json()[0]
-        woeid = location['woeid']
-        data = requests.get(f"{url}/{woeid}/").json()
-
-        weather = data['consolidated_weather'][0]
-
-        self.location = data['title']
-
-        self.sun_up   = self.convert(data['sun_rise'])
-        self.sun_down = self.convert(data['sun_set'])
-        self.time     = self.convert(data['time'])
-
-        self.state    = weather['weather_state_name']
-        self.humidity = weather['humidity']
-
-        self.high     = round(weather['max_temp'], 2)
-        self.low      = round(weather['min_temp'], 2)
-        self.temp     = round(weather['the_temp'], 2)
-
-        self.temp_f = self.c_to_f(self.temp)
-        self.low_f  = self.c_to_f(self.high)
-        self.high_f = self.c_to_f(self.low)
-
-    def c_to_f(self, t):
-        return round(32 + 9 / 5 * t, 2)
-
-    def convert(self, t):
+    def convert(t):
         return dt.datetime.fromisoformat(t).strftime('%H:%M')
 
-class Covid:
+    url = 'https://www.metaweather.com/api/location'
+    latlong = os.getenv('WEATHER_LAT_LONG')
+    location = requests.get(f'{url}/search?lattlong={latlong}').json()[0]
+    woeid = location['woeid']
+    data = requests.get(f"{url}/{woeid}/").json()
 
-    def __init__(self):
+    weather = data['consolidated_weather'][0]
 
-        state = os.getenv('COVID_STATE', 'FL')
-        url = f'https://api.covidtracking.com/v1/states/{state}/current.json'
+    location = data['title']
 
-        covid = requests.get(url).json()
+    sun_up   = convert(data['sun_rise'])
+    sun_down = convert(data['sun_set'])
+    time     = convert(data['time'])
 
-        self.deaths = covid['death']
-        self.hospitalized = covid['hospitalizedCurrently']
-        self.icued = covid['inIcuCurrently']
-        self.state = state
+    state    = weather['weather_state_name']
+    humidity = weather['humidity']
+
+    high     = round(weather['max_temp'], 2)
+    low      = round(weather['min_temp'], 2)
+    temp     = round(weather['the_temp'], 2)
+
+    temp_f = round(32 + 9 / 5 * temp, 2)
+    low_f  = round(32 + 9 / 5 * high, 2)
+    high_f = round(32 + 9 / 5 * low, 2)
+
+    return dict(location=location,
+                sunup=sun_up,
+                sundown=sun_down,
+                time=time,
+                state=state,
+                humidity=humidity,
+                high=high,
+                low=low,
+                temp=temp,
+                tempf=temp_f,
+                lowf=low_f,
+                highf=high_f)
+
+def covid():
+
+    state = os.getenv('COVID_STATE', 'FL')
+    url = f'https://api.covidtracking.com/v1/states/{state}/current.json'
+
+    covid = requests.get(url).json()
+
+    return dict(deaths=covid['death'],
+                hospitalized=covid['hospitalizedCurrently'],
+                icued=covid['inIcuCurrently'],
+                state=state)
 
 
-class Trivia:
+def trivia():
 
-    def __init__(self):
+    # obtain categories and their ids
+    url = 'https://opentdb.com/api.php'
 
-        # obtain categories and their ids
-        url = 'https://opentdb.com/api.php'
+    results = requests.get(url, params=dict(category=9, amount=1)).json()
 
-        results = requests.get(url, params=dict(category=9, amount=1)).json()
+    result = results['results'][0]
 
-        result = results['results'][0]
+    answers = result['incorrect_answers'] + [result['correct_answer']]
+    answers = answers[:]
+    random.shuffle(answers)
 
-        answers = result['incorrect_answers'] + [result['correct_answer']]
-        self.answers = answers[:]
-        random.shuffle(self.answers)
-
-        self.question = result['question']
-        self.correct = result['correct_answer']
-        self.difficulty = result['difficulty']
+    return dict(question=result['question'],
+                answers=answers,
+                correct=result['correct_answer'],
+                difficulty=result['difficulty'])

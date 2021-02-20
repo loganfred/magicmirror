@@ -1,49 +1,133 @@
 <!doctype html>
 <title>test</title>
-<style>
-    .answer {
-        color: blue;
-    }
-</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 <body>
-<h1>dashboard test</h1>
+<h1>Dashboard</h1>
 
-<h2> bitcoin </h2>
+<h2>Bitcoin</h2>
+    <p>
+        The current bitcoin price is
+        $ <span class="answer bitcoin" id="bitcoin_price"> VALUE </span>
+        .
+    </p>
 
-<p> The current bitcoin price is $ {{ bitcoin.price }}. </p>
-<p> After {{ bitcoin.days }} days you are up {{ bitcoin.growth_pct }} %. </p>
-<p> Your total profit is $ {{ bitcoin.profit }}.</p>
+    <p>
+        After
+        <span class="answer bitcoin" id="bitcoin_days"> VALUE </span>
+        days you are up
+        <span class="answer bitcoin" id="bitcoin_growthpct"> VALUE </span>
+        %.
+    </p>
 
-<h2> weather </h2>
+    <p>
+        Your total profit is $
+        <span class="answer bitcoin" id="bitcoin_profit"> VALUE </span>
+        .
+    </p>
 
-<p> {{ weather.state }} in {{ weather.location }} at {{ weather.time }}.  </p>
-<p> Today the sun rises at {{ weather.sun_up }} and sets at {{ weather.sun_down }}. </p>
-<p> The current temperature is {{ weather.temp }} °C ({{ weather.temp_f }} °F) with humidity of {{ weather.humidity }} %</p>
-<p> The low is {{ weather.low }} °C ({{ weather.low_f }} °F) and the high is {{ weather.high }} °C ({{ weather.low }} °F). </p>
+<h2>Weather</h2>
 
-<h2> chess </h2>
+    <p>
+        <span class="answer weather" id="weather_state"> VALUE </span>
+        in
+        <span class="answer weather" id="weather_location"> VALUE </span>
+        at
+        <span class="answer weather" id="weather_time"> VALUE </span>
+        .
+    </p>
 
-<p> Your current rating is {{ chess.daily }} (Best: {{ chess.peak }}) </p>
-<p> Your record is {{ chess.wins }} wins and {{ chess.losses }} losses with {{ chess.drawn }} drawn games. </p>
-<p> You have {{ chess.active_count }} active games. </p>
+    <p>
+        Today the sun rises at
+        <span class="answer weather" id="weather_sunup"> VALUE </span>
+        and sets at
+        <span class="answer weather" id="weather_sundown"> VALUE </span>
+        .
+    </p>
 
-<h2> covid </h2>
+    <p> The current temperature is
+        <span class="answer weather" id="weather_temp"> VALUE </span>
+        °C (
+        <span class="answer weather" id="weather_tempf"> VALUE </span>
+        °F) with humidity of
+        <span class="answer weather" id="weather_humidity"> VALUE </span>
+        %
+    </p>
 
-<p> The state of {{ covid.state }} has experienced {{ covid.deaths }} total deaths.</p>
-<p> There are {{ covid.hospitalized }} people hospitalized currently. </p>
-<p> There are {{ covid.icued }} people currently in the ICU. </p>
+    <p>
+        The low is
+        <span class="answer weather" id="weather_low"> VALUE </span>
+        °C (
+        <span class="answer weather" id="weather_lowf"> VALUE </span>
+        °F) and the high is
+        <span class="answer weather" id="weather_high"> VALUE </span>
+        °C (
+        <span class="answer weather" id="weather_highf"> VALUE </span>
+        °F).
+    </p>
 
-<h2> trivia </h2>
+<h2> Chess </h2>
 
-<p> {{ trivia.question }} (Difficulty: {{ trivia.difficulty }}) </p>
-<ul>
-{% for answer in trivia.answers %}
-    {% if answer == trivia.correct %}
-        <li class="correct"> {{ answer }} </li>
-    {% else %}
-        <li> {{ answer }} </li>
-    {% endif %}
-{% endfor %}
-</ul>
+    <p>
+        Your current rating is
+        <span class="answer chess" id="chess_daily"> VALUE </span>
+        (Best:
+        <span class="answer chess" id="chess_peak"> VALUE </span>
+        )
+    </p>
 
+    <p>
+    Your record is
+        <span class="answer chess" id="chess_wins"> VALUE </span>
+        wins and
+        <span class="answer chess" id="chess_losses"> VALUE </span>
+        losses with
+        <span class="answer chess" id="chess_drawn"> VALUE </span>
+        drawn games.
+    </p>
+
+    <p>
+        You have
+        <span class="answer chess" id="chess_activecount"> VALUE </span>
+        active games.
+    </p>
+
+<h2> Covid </h2>
+
+    <p>
+        The state of
+        <span class="answer covid" id="covid_state"> VALUE </span>
+        has experienced
+        <span class="answer covid" id="covid_deaths"> VALUE </span>
+        total deaths.
+    </p>
+
+    <p>
+        There are
+        <span class="answer covid" id="covid_hospital"> VALUE </span>
+        people hospitalized currently.
+        </p>
+    <p>
+        There are
+        <span class="answer covid" id="covid_icu"> VALUE </span>
+        people currently in the ICU.
+    </p>
+
+<h2> Trivia </h2>
+
+    <p>
+        <span class="answer trivia" id="trivia_question"> VALUE </span>
+        (Difficulty:
+        <span class="answer trivia" id="trivia_difficulty"> VALUE </span>
+        )
+    </p>
+
+    <ol id="trivia_answers" type="A">
+        <li>VALUE</li>
+        <li>VALUE</li>
+        <li>VALUE</li>
+        <li>VALUE</li>
+    </ol>
 </body>
