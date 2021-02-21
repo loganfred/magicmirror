@@ -1,7 +1,30 @@
+@charset "utf-8";
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
+
 .answer {
     color: blue;
 }
 
-#trivia_correct {
+.spoil {
     color: green;
+}
+
+#trivia_answers {
+    margin-left: 50px;
+}
+
+.main-content {
+    width: 70%;
+    margin: auto;
+    padding-top: 10%;
+}
+
+.box {
+    margin-bottom: 50px;
+}
+
+#trivia_button {
+    position absolute;
+    bottom: 0px;
+    right: -4px;
 }

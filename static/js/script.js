@@ -69,17 +69,23 @@ function update_trivia(trivia) {
     trivia.answers.map( function(item,i) {
 
         var li = $('<li/>')
-            .addClass('answer trivia_answer')
-            .text(item)
             .appendTo(ol);
 
+        var span = $('<span/>')
+            .addClass('answer')
+            .text(item)
+            .appendTo(li);
+
         if (item == trivia.correct) {
-            li.attr('id', 'trivia_correct');
+            span.attr('id', 'trivia_correct');
             }
         }
     );
 }
 
+function spoil_trivia() {
+    $('#trivia_correct').addClass('spoil');
+}
 
 fetch_covid();
 fetch_chess();

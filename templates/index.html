@@ -1,133 +1,135 @@
 <!doctype html>
-<title>test</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <title>test</title>
+</head>
 
 <body>
-<h1>Dashboard</h1>
 
-<h2>Bitcoin</h2>
-    <p>
-        The current bitcoin price is
-        $ <span class="answer bitcoin" id="bitcoin_price"> VALUE </span>
-        .
-    </p>
-
-    <p>
-        After
-        <span class="answer bitcoin" id="bitcoin_days"> VALUE </span>
-        days you are up
-        <span class="answer bitcoin" id="bitcoin_growthpct"> VALUE </span>
-        %.
-    </p>
-
-    <p>
-        Your total profit is $
-        <span class="answer bitcoin" id="bitcoin_profit"> VALUE </span>
-        .
-    </p>
-
-<h2>Weather</h2>
-
-    <p>
-        <span class="answer weather" id="weather_state"> VALUE </span>
-        in
-        <span class="answer weather" id="weather_location"> VALUE </span>
-        at
-        <span class="answer weather" id="weather_time"> VALUE </span>
-        .
-    </p>
-
-    <p>
-        Today the sun rises at
-        <span class="answer weather" id="weather_sunup"> VALUE </span>
-        and sets at
-        <span class="answer weather" id="weather_sundown"> VALUE </span>
-        .
-    </p>
-
-    <p> The current temperature is
-        <span class="answer weather" id="weather_temp"> VALUE </span>
-        °C (
-        <span class="answer weather" id="weather_tempf"> VALUE </span>
-        °F) with humidity of
-        <span class="answer weather" id="weather_humidity"> VALUE </span>
-        %
-    </p>
-
-    <p>
-        The low is
-        <span class="answer weather" id="weather_low"> VALUE </span>
-        °C (
-        <span class="answer weather" id="weather_lowf"> VALUE </span>
-        °F) and the high is
-        <span class="answer weather" id="weather_high"> VALUE </span>
-        °C (
-        <span class="answer weather" id="weather_highf"> VALUE </span>
-        °F).
-    </p>
-
-<h2> Chess </h2>
-
-    <p>
-        Your current rating is
-        <span class="answer chess" id="chess_daily"> VALUE </span>
-        (Best:
-        <span class="answer chess" id="chess_peak"> VALUE </span>
-        )
-    </p>
-
-    <p>
-    Your record is
-        <span class="answer chess" id="chess_wins"> VALUE </span>
-        wins and
-        <span class="answer chess" id="chess_losses"> VALUE </span>
-        losses with
-        <span class="answer chess" id="chess_drawn"> VALUE </span>
-        drawn games.
-    </p>
-
-    <p>
-        You have
-        <span class="answer chess" id="chess_activecount"> VALUE </span>
-        active games.
-    </p>
-
-<h2> Covid </h2>
-
-    <p>
-        The state of
-        <span class="answer covid" id="covid_state"> VALUE </span>
-        has experienced
-        <span class="answer covid" id="covid_deaths"> VALUE </span>
-        total deaths.
-    </p>
-
-    <p>
-        There are
-        <span class="answer covid" id="covid_hospital"> VALUE </span>
-        people hospitalized currently.
+<div class="main-content">
+    <div class="box">
+    <div class="nes-container with-title is-rounded">
+        <p class="title">Bitcoin</p>
+        <p>
+            The current bitcoin price is
+            $ <span class="answer bitcoin" id="bitcoin_price">VALUE</span>
         </p>
-    <p>
-        There are
-        <span class="answer covid" id="covid_icu"> VALUE </span>
-        people currently in the ICU.
-    </p>
+        <p>
+            After
+            <span class="answer bitcoin" id="bitcoin_days">VALUE</span>
+            days you are up
+            <span class="answer bitcoin" id="bitcoin_growthpct">VALUE</span>%
+        </p>
+        <p>
+            Your total profit is $
+            <span class="answer bitcoin" id="bitcoin_profit">VALUE</span>.
+        </p>
+    </div>
+    </div>
 
-<h2> Trivia </h2>
+    <div class="box">
+    <div class="nes-container with-title is-rounded">
+        <p class="title">Weather</p>
+        <p>
+            <span class="answer weather" id="weather_state">VALUE</span>
+            in
+            <span class="answer weather" id="weather_location">VALUE</span>
+            at
+            <span class="answer weather" id="weather_time">VALUE</span>
+        </p>
+        <p>
+            Today the sun rises at
+            <span class="answer weather" id="weather_sunup">VALUE</span>
+            and sets at
+            <span class="answer weather" id="weather_sundown">VALUE</span>
+        </p>
+        <p> It is
+            <span class="answer weather" id="weather_temp">VALUE</span>°C
+            (<span class="answer weather" id="weather_tempf">VALUE</span>°F)
+            with humidity of
+            <span class="answer weather" id="weather_humidity">VALUE</span>%
+        </p>
+        <p>
+            Low of
+            <span class="answer weather" id="weather_low">VALUE</span>°C
+            (<span class="answer weather" id="weather_lowf">VALUE</span>°F)
+            and high of
+            <span class="answer weather" id="weather_high">VALUE</span>°C
+            (<span class="answer weather" id="weather_highf">VALUE</span>°F)
+        </p>
+    </div>
+    </div>
 
-    <p>
-        <span class="answer trivia" id="trivia_question"> VALUE </span>
+    <div class="box">
+    <div class="nes-container with-title is-rounded">
+        <p class="title">Chess</p>
+        <p>
+            Current rating:
+            <span class="answer chess" id="chess_daily">VALUE</span>
+            (Best:
+            <span class="answer chess" id="chess_peak">VALUE</span>)
+        </p>
+        <p>
+            <span class="answer chess" id="chess_wins">VALUE</span>
+            wins and
+            <span class="answer chess" id="chess_losses">VALUE</span>
+            losses with
+            <span class="answer chess" id="chess_drawn">VALUE</span>
+            draw
+        </p>
+        <p>
+            You have
+            <span class="answer chess" id="chess_activecount">VALUE</span>
+            active games
+        </p>
+    </div>
+    </div>
+
+    <div class="box">
+    <div class="nes-container with-title is-rounded">
+        <p class="title">Covid</p>
+        <p>
+            For
+            <span class="answer covid" id="covid_state">VALUE</span>:
+        </p>
+        <p>
+            <span class="answer covid" id="covid_deaths">VALUE</span>
+            deaths
+        </p>
+        <p>
+            <span class="answer covid" id="covid_hospital">VALUE</span>
+            currently hospitalized
+        <p>
+            <span class="answer covid" id="covid_icu">VALUE</span>
+            currently in ICU
+        </p>
+    </div>
+    </div>
+
+    <div class="box">
+    <div class="nes-container with-title is-rounded">
+        <p class="title">Trivia</p>
+        <span class="answer trivia" id="trivia_question">VALUE</span>
         (Difficulty:
-        <span class="answer trivia" id="trivia_difficulty"> VALUE </span>
-        )
-    </p>
-
-    <ol id="trivia_answers" type="A">
-        <li>VALUE</li>
-        <li>VALUE</li>
-        <li>VALUE</li>
-        <li>VALUE</li>
-    </ol>
+        <span class="answer trivia" id="trivia_difficulty">VALUE</span>)
+        <p></p>
+        <ol id="trivia_answers" type="A">
+            <li>VALUE</li>
+            <li>VALUE</li>
+            <li>VALUE</li>
+            <li>VALUE</li>
+        </ol>
+        <button type="button" class="nes-btn" id="trivia_button" onclick="spoil_trivia()">Check</button>
+    </div>
+</div>
+</div>
 </body>
