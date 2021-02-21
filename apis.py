@@ -8,6 +8,12 @@ load_dotenv('config.env')
 
 def bitcoin():
 
+    if os.getenv('DEBUG'):
+        return dict(days='100',
+                    price='50,000.00',
+                    profit='3,000.00',
+                    pct=f'100.00')
+
     owned = float(os.getenv('BITCOIN_AMOUNT'))
     principle = float(os.getenv('BITCOIN_PRINCIPLE'))
     purchase = dt.datetime.fromisoformat(os.getenv('BITCOIN_PURCHASE'))
@@ -30,6 +36,14 @@ def bitcoin():
 
 def chess():
 
+    if os.getenv('DEBUG'):
+        return dict(daily=700,
+                    peak=700,
+                    wins=10,
+                    losses=10,
+                    drawn=1,
+                    active_count=3)
+
     username = os.getenv('CHESS_USERNAME')
     url = f'https://api.chess.com/pub/player/{username}'
     stats = requests.get(f'{url}/stats').json()['chess_daily']
@@ -46,6 +60,20 @@ def weather():
 
     def convert(t):
         return dt.datetime.fromisoformat(t).strftime('%H:%M')
+
+    if os.getenv('DEBUG'):
+        return dict(location='Washington DC',
+                    sunup='7:00',
+                    sundown='17:00',
+                    time='12:00',
+                    state='FL',
+                    humidity='70.00',
+                    high='25',
+                    low='20',
+                    temp='23',
+                    tempf='60',
+                    lowf='50',
+                    highf='70')
 
     url = 'https://www.metaweather.com/api/location'
     latlong = os.getenv('WEATHER_LAT_LONG')
@@ -87,6 +115,13 @@ def weather():
 
 def covid():
 
+    if os.getenv('DEBUG'):
+
+        return dict(deaths='10,000',
+                    hospitalized='1,000',
+                    icued='50',
+                    state='FL')
+
     state = os.getenv('COVID_STATE', 'FL')
     url = f'https://api.covidtracking.com/v1/states/{state}/current.json'
 
@@ -99,6 +134,13 @@ def covid():
 
 
 def trivia():
+
+    if os.getenv('DEBUG'):
+
+        return dict(question='How many answers are there?',
+                    answers=['One', 'Two', 'Three', 'Four'],
+                    correct='Four',
+                    difficulty='Easy')
 
     # obtain categories and their ids
     url = 'https://opentdb.com/api.php'
