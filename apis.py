@@ -8,7 +8,7 @@ load_dotenv('config.env')
 
 def bitcoin():
 
-    if os.getenv('DEBUG'):
+    if os.getenv('DEBUG') == '1':
         return dict(days='100',
                     price='50,000.00',
                     profit='3,000.00',
@@ -36,7 +36,7 @@ def bitcoin():
 
 def chess():
 
-    if os.getenv('DEBUG'):
+    if os.getenv('DEBUG') == '1':
         return dict(daily=700,
                     peak=700,
                     wins=10,
@@ -61,7 +61,7 @@ def weather():
     def convert(t):
         return dt.datetime.fromisoformat(t).strftime('%H:%M')
 
-    if os.getenv('DEBUG'):
+    if os.getenv('DEBUG') == '1':
         return dict(location='Washington DC',
                     sunup='7:00',
                     sundown='17:00',
@@ -115,7 +115,7 @@ def weather():
 
 def covid():
 
-    if os.getenv('DEBUG'):
+    if os.getenv('DEBUG') == '1':
 
         return dict(deaths='10,000',
                     hospitalized='1,000',
@@ -135,7 +135,7 @@ def covid():
 
 def trivia():
 
-    if os.getenv('DEBUG'):
+    if os.getenv('DEBUG') == '1':
 
         return dict(question='How many answers are there?',
                     answers=['One', 'Two', 'Three', 'Four'],
