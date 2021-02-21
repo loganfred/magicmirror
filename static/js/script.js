@@ -66,7 +66,7 @@ function update_trivia(trivia) {
     var ol = $('#trivia_answers');
     ol.empty();
 
-    trivia.answers.map( (item,i) => {
+    trivia.answers.map( function(item,i) {
 
         var li = $('<li/>')
             .addClass('answer trivia_answer')
