@@ -11,7 +11,7 @@
 }
 
 .spoil {
-    color: #33FF33;
+    color: yellow;
 }
 
 #trivia_answers {
@@ -25,7 +25,7 @@
 }
 
 .box {
-    margin-bottom: 50px;
+    padding-bottom: 50px;
 }
 
 #trivia_button {
@@ -38,10 +38,19 @@
     color: #33FF33 !important;
     border-color: #33FF33 !important;
     background-color: black !important;
+    text-shadow: 0 0 3px #80ffc0, 0 0 10px #00ff66;
+    box-shadow: 0 0 3px #80ffc0, 0 0 10px #00ff66;
+    font-size: 12px !important;
 }
 
 .nes-container.is-dark.with-title>.title {
     color: #33FF33 !important;
     background-color: black !important;
     text-shadow: 0 0 3px #80ffc0, 0 0 10px #00ff66;
+    margin: -2.5rem 0 1rem !important;
+    box-shadow: 0 0 3px black, 0 0 10px black;
+}
+
+p.title {
+    height: 25px !important;
 }
