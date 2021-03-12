@@ -97,8 +97,8 @@ def weather():
     temp     = round(weather['the_temp'], 2)
 
     temp_f = round(32 + 9 / 5 * temp, 2)
-    low_f  = round(32 + 9 / 5 * high, 2)
-    high_f = round(32 + 9 / 5 * low, 2)
+    low_f  = round(32 + 9 / 5 * low, 2)
+    high_f = round(32 + 9 / 5 * high, 2)
 
     return dict(location=location,
                 sunup=sun_up,
