@@ -1,8 +1,11 @@
 import os
+import re
+import csv
+import html
 import random
 import requests
-import datetime as dt
 from dotenv import load_dotenv
+from datetime import datetime as dt
 
 load_dotenv('config.env')
 
@@ -16,13 +19,13 @@ def bitcoin():
 
     owned = float(os.getenv('BITCOIN_AMOUNT'))
     principle = float(os.getenv('BITCOIN_PRINCIPLE'))
-    purchase = dt.datetime.fromisoformat(os.getenv('BITCOIN_PURCHASE'))
+    purchase = dt.fromisoformat(os.getenv('BITCOIN_PURCHASE'))
 
     url = 'https://api.coindesk.com/v1/bpi/currentprice.json'
     data = requests.get(url).json()
 
     price = data['bpi']['USD']['rate_float']
-    timestamp = dt.datetime.fromisoformat(data['time']['updatedISO'])
+    timestamp = dt.fromisoformat(data['time']['updatedISO'])
 
     profit = (price * owned - principle)
     pct_growth = profit / principle * 100
@@ -59,7 +62,7 @@ def chess():
 def weather():
 
     def convert(t):
-        return dt.datetime.fromisoformat(t).strftime('%H:%M')
+        return dt.fromisoformat(t).strftime('%H:%M')
 
     if os.getenv('DEBUG') == '1':
         return dict(location='Washington DC',
@@ -153,7 +156,28 @@ def trivia():
     answers = answers[:]
     random.shuffle(answers)
 
-    return dict(question=result['question'],
-                answers=answers,
-                correct=result['correct_answer'],
+    return dict(question=html.unescape(result['question']),
+                answers=[html.unescape(x) for x in answers],
+                correct=html.unescape(result['correct_answer']),
                 difficulty=result['difficulty'])
+
+def birthdays(only_this_month=False):
+    if os.getenv('DEBUG') == '1':
+        return dict(birthdays=[{'Me': 'April 1'}, {'You': 'April 2'}])
+
+    with open('birthdays.csv') as b:
+        reader = csv.reader(b, delimiter='\t')
+        data = [x for x in reader]
+
+    if only_this_month:
+        month = dt.now().strftime('%B')
+        re_m = re.compile('(\w+) (\d+)')
+
+        filtered = []
+        for date, name in data:
+            if re.match(re_m, date).groups()[0] == month:
+                filtered.append([date, name])
+
+        return filtered
+
+    return data

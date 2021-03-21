@@ -1,13 +1,22 @@
+import os
 from flask import Flask
 from flask import jsonify
 from flask import render_template
-import os
+from dotenv import load_dotenv
 
 import apis
 
 app = Flask(__name__)
 
 load_dotenv('config.env')
+
+@app.route('/api/birthdays')
+def birthdays():
+    return jsonify(apis.birthdays())
+
+@app.route('/api/birthdays/now')
+def birthdays_now():
+    return jsonify(apis.birthdays(only_this_month=True))
 
 @app.route('/api/bitcoin')
 def bitcoin():

@@ -3,6 +3,7 @@ function fetch_chess() { $.getJSON('/api/chess', update_chess); }
 function fetch_covid() { $.getJSON('/api/covid', update_covid); }
 function fetch_trivia() { $.getJSON('/api/trivia', update_trivia); }
 function fetch_weather() { $.getJSON('/api/weather', update_weather); }
+function fetch_birthdays() { $.getJSON('/api/birthdays/now', update_birthdays); }
 
 function update_bitcoin(bitcoin) {
 
@@ -56,6 +57,28 @@ function update_weather(weather) {
 
 }
 
+function update_birthdays(birthdays) {
+
+    console.log(birthdays);
+
+    let ol = $('#birthdays');
+
+    ol.empty();
+
+    birthdays.map( function(item,i) {
+
+        var li = $('<li/>')
+            .appendTo(ol);
+
+        var span = $('<span/>')
+            .addClass('answer')
+            .text(item.toString())
+            .appendTo(li);
+
+        }
+    );
+}
+
 function update_trivia(trivia) {
 
     console.log(trivia);
@@ -92,9 +115,11 @@ fetch_chess();
 fetch_weather();
 fetch_trivia();
 fetch_bitcoin();
+fetch_birthdays();
 
 setInterval(fetch_covid,   15 * 60 * 1000);
 setInterval(fetch_chess,   15 * 60 * 1000);
 setInterval(fetch_weather, 15 * 60 * 1000);
 setInterval(fetch_trivia,  15 * 60 * 1000);
 setInterval(fetch_bitcoin, 15 * 60 * 1000);
+setInterval(fetch_birthdays, 24 * 60 * 60 * 1000);
